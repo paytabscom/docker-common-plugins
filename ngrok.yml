@@ -1,0 +1,12 @@
+
+services:
+
+  ngrok:
+    container_name: ${Name}-ngrok
+    image: ngrok/ngrok:latest
+    environment:
+      NGROK_AUTHTOKEN: '${NGROK_AUTH}'
+      PORT: 443
+    command: 'http --host-header=rewrite ${NGROK_DOMAIN}'
+    ports:
+      - ${NGROK_4040}:4040

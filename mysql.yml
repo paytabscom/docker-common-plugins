@@ -1,0 +1,24 @@
+
+services:
+
+  mysql:
+    container_name: ${Name}-db
+    image: mysql:${MySQLTag}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - ${DB_PORT}:3306
+    volumes:
+      - db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD']
+      interval: 5s
+      timeout: 60s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  db:
