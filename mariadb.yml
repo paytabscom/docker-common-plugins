@@ -14,7 +14,7 @@ services:
     volumes:
       - db:/var/lib/mysql
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "--silent" ]
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 5s
       timeout: 60s
       retries: 5
